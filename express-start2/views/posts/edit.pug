@@ -1,0 +1,14 @@
+- var action = post ? `/posts/${post.shortId}` : "/posts"
+form(action=action, method="post")
+    table
+        tbody
+            tr
+                th 제목
+                td: input(type="text" name="title" value=post&&post.title)
+            tr
+                th 내용
+                td: textarea(name="content")= post&&post.content
+            td
+                td(colspan="2")
+                    - var value = post ? "수정" : "등록"
+                    input(type="submit" value=value)

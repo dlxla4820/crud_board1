@@ -1,0 +1,30 @@
+table
+    tbody
+        tr
+            td(colspan="2")= post.title
+        tr
+            td= post.author
+            td= formatDate(post.createdAt)
+        tr
+            td(colspan="2"): pre= post.content
+        tr
+            td: a(href=`/posts/${post.shortId}?edit=true`) 수정
+            td
+                button.delete(onclick=`deletePost("${post.shortId}")`) 삭제
+            script(type="text/javascript").
+                function deletePost(shortId) {
+                    fetch('/posts/'+shortId, {method:'delete'})
+                        .then((res) => {
+                            if (res.ok) {
+                                alert('삭제되었습니다.');
+                                window.location.href = '/posts';
+                            } else {
+                                alert('오류가 발생했습니다.');
+                                console.log(res.statusText);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            alert('오류가 발생했습니다.');
+                        });
+                }
